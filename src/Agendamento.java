@@ -1,5 +1,5 @@
 public class Agendamento{
-  // data
-  String area;
-  //senroes a usar
+  // private data
+  private String area;
+  //private sensores a usar
 }
