@@ -1,4 +1,4 @@
 public class Relatorio{
-  Drones drones; // voos realizados
-  Registro registro; //ultimas medicoes
+  private Drone drones; // voos realizados
+  private Registro registro; //ultimas medicoes
 }

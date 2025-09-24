@@ -1,5 +1,9 @@
 public class Drone{
-  String ID;
-  bool status;
+  private String ID;
+  private bool status;
   //sensores disponiveis
+
+
+
+  
 }
