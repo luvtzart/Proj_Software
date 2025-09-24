@@ -15,11 +15,11 @@ Tratamento seguro de dados de sensores (evitar entradas inválidas ou corrompida
 Checklist de segurança antes do voo (bateria mínima e sensores funcionando).
 
 # Precisa conter:
-Modelagem inicial: elaborar diagramas de classes e sequência, respeitando boas práticas de encapsulamento e validação de dados.
-Integração dos modelos: consolidar classes, interações, estados e colaboração, prevendo restrições de segurança.
-Implementação: transformar os modelos em código Java, aplicando programação segura (validação de entradas, tratamento de exceções e uso de prepared statements).
-Controle de versão: utilizar GitHub desde a primeira entrega, com commits organizados, e sem credenciais ou dados sensíveis no repositório.
-Documentação e apresentação: gerar documentação clara, checklist de segurança e vídeo explicativo demonstrando o sistema.
+Modelagem inicial: elaborar diagramas de classes e sequência, respeitando boas práticas de encapsulamento e validação de dados.        
+Integração dos modelos: consolidar classes, interações, estados e colaboração, prevendo restrições de segurança.        
+Implementação: transformar os modelos em código Java, aplicando programação segura (validação de entradas, tratamento de exceções e uso de prepared statements).   
+Controle de versão: utilizar GitHub desde a primeira entrega, com commits organizados, e sem credenciais ou dados sensíveis no repositório.    
+Documentação e apresentação: gerar documentação clara, checklist de segurança e vídeo explicativo demonstrando o sistema.    
 
 # Criterios de Segurança:
 Encapsulamento adequado (atributos privados).
