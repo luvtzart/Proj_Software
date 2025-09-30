@@ -1,0 +1,58 @@
+Diagrama de sequências:
+
+Usuário → Sistema → Área → Drone → Agendamento → Registro → Relatório
+
+-- =========================
+-- Tabela: Areas
+-- =========================
+CREATE TABLE Areas (
+    ID_Area INT AUTO_INCREMENT PRIMARY KEY,
+    Tamanho DECIMAL(10,2) NOT NULL,
+    Local VARCHAR(255) NOT NULL,
+    Tipo VARCHAR(100) NOT NULL
+);
+
+-- =========================
+-- Tabela: Drones
+-- =========================
+CREATE TABLE Drones (
+    ID_Drone INT AUTO_INCREMENT PRIMARY KEY,
+    Status ENUM('Ativo', 'Inativo') NOT NULL
+);
+
+-- =========================
+-- Tabela: Sensores
+-- =========================
+CREATE TABLE Sensores (
+    Sensor_ID INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Drone INT NOT NULL,
+    Sensor_temperatura BOOLEAN DEFAULT TRUE,
+    Sensor_umidade BOOLEAN DEFAULT TRUE,
+    Sensor_pragas BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (ID_Drone) REFERENCES Drones(ID_Drone)
+);
+
+-- =========================
+-- Tabela: Agendamentos
+-- =========================
+CREATE TABLE Agendamentos (
+    Agendamento_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Data DATE NOT NULL,
+    Area_ID INT NOT NULL,
+    Drone_ID INT NOT NULL,
+    FOREIGN KEY (Area_ID) REFERENCES Areas(ID_Area),
+    FOREIGN KEY (Drone_ID) REFERENCES Drones(ID_Drone)
+);
+
+-- =========================
+-- Tabela: Registros
+-- =========================
+CREATE TABLE Registros (
+    Registro_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Imagens VARCHAR(255),
+    Agendamento_ID INT NOT NULL,
+    Drone_sensor_temperatura DOUBLE CHECK (Drone_sensor_temperatura BETWEEN 0 AND 60),
+    Drone_sensor_umidade DOUBLE CHECK (Drone_sensor_umidade BETWEEN 0 AND 100),
+    Drone_sensor_pragas BOOLEAN,
+    FOREIGN KEY (Agendamento_ID) REFERENCES Agendamentos(Agendamento_ID)
+);
