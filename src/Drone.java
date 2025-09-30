@@ -1,23 +1,19 @@
 public class Drone{
     private String id;
-    private boolean sensorDisponivel;
+    private Sensores sensor;
     private String status;
 
-    public Drone(String id, boolean sensorDisponivel, String status) {
+    public Drone(String id,  String status) {
         if (id == null || id.isBlank()) {
             throw new IllegalArgumentException("ID do drone não pode ser nulo ou vazio.");
         }
         this.id = id;
-        this.sensorDisponivel = sensorDisponivel;
         this.status = status;
+        this.sensor = new Sensores();
     }
 
     public String getId() {
         return id;
-    }
-
-    public boolean isSensorDisponivel() {
-        return sensorDisponivel;
     }
     
     public String getStatus() {
@@ -28,7 +24,8 @@ public class Drone{
         return this.status = status;
     }
 
-    public void setSensorDisponivel(boolean sensorDisponivel) {
-        this.sensorDisponivel = sensorDisponivel;
-    }
+      public Sensores getSensor() {
+        return sensor;
+    }    
 }
+

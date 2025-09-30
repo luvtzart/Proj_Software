@@ -14,13 +14,7 @@ public class Agendamento{
     public String getId() {
         return id;
     }
-    public String getData() {
-        return data;
-    }
-    public Area getArea() {
-        return area;
-    }
-    public Drone getDrone() {
-        return drone;
-    }
+    public String getData() { return data; }
+    public Area getArea() { return area; }
+    public Drone getDrone() { return drone; }
 } 
