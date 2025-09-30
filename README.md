@@ -5,7 +5,7 @@ Alunos:
   - Luiza Marinho de Mesquita - 10438045
   - Vinicius Barbosa Pereira Allegretti - 10437502
 
-#O que falta:
+# O que falta:
 
 Criar um Diagrama de Sequência para esse fluxo! Ex:
 Usuário → Sistema → Área → Drone → Agendamento → Registro → Relatório
