@@ -7,9 +7,9 @@ Alunos:
 
 # O que falta:
 
-Criar um Diagrama de Sequência para esse fluxo! Ex:
+-Criar um Diagrama de Sequência para esse fluxo! Ex:
 Usuário → Sistema → Área → Drone → Agendamento → Registro → Relatório
-Mostrar as mensagens (ex.: criarAgendamento(), registrarDados(), gerarResumo()).
-Criar o modelo de banco de dados (tabelas areas, drones, agendamentos, registros, etc).
-Mapear as classes para tabelas (pode ser com UML de Classes + DER de banco).
-Mostrar no relatório/documentação como as classes Java se relacionam com o banco.
+-Mostrar as mensagens (ex.: criarAgendamento(), registrarDados(), gerarResumo()).
+-Criar o modelo de banco de dados (tabelas areas, drones, agendamentos, registros, etc).
+-Mapear as classes para tabelas (pode ser com UML de Classes + DER de banco).
+-Mostrar no relatório/documentação como as classes Java se relacionam com o banco.
