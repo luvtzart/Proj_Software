@@ -14,7 +14,29 @@ public class Agendamento{
     public String getId() {
         return id;
     }
-    public String getData() { return data; }
-    public Area getArea() { return area; }
-    public Drone getDrone() { return drone; }
+    public String getData() {
+        return data;
+    }
+    public Area getArea() {
+        return area;
+    }
+    public Drone getDrone() {
+        return drone;
+    }
+    
+    public boolean agendarVoo() {
+        if (drone.reservarDrone()) {  
+            System.out.println("Voo agendado na área " + area.getId() + " para o drone " + drone.getId());
+            return true;
+        } else {
+            System.out.println("Erro ao agendar o voo! O drone está ocupado.");
+            return false;
+        }
+    }
+    
+    public void concluirVoo() {
+        System.out.println("Voo concluído na área " + area.getId() + " com o drone " + drone.getId());
+        drone.liberarDrone();
+    }
+
 } 
