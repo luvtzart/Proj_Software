@@ -16,9 +16,9 @@ public class Main {
         ag2.agendarVoo();
         ag3.agendarVoo();
         
-        RegistroPlantacao registro1 = new RegistroPlantacao("imagem1.jpg", ag1, 25.5, 60.0, false);
-        RegistroPlantacao registro2 = new RegistroPlantacao("imagem2.jpg", ag2, 30.0, 55.0, true);
-        
+        RegistroPlantacao registro1 = new RegistroPlantacao("imagem1.jpg", ag1, drone1);
+        RegistroPlantacao registro2 = new RegistroPlantacao("imagem2.jpg", ag2, drone2);
+
         Relatorio rel1 = new Relatorio(registro1);
         Relatorio rel2 = new Relatorio(registro2);
         

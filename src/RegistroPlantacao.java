@@ -8,9 +8,9 @@ public class RegistroPlantacao {
     public RegistroPlantacao(String imagens, Agendamento missao, Drone drone) {
         this.imagens = imagens;
         this.missao = missao;
-        this.temperatura = drone.getSensor().getTemperatura();
-        this.umidade = drone.getSensor().getUmidade();
-        this.pragas = drone.getSensor().getPragas();
+        this.temperatura =getTemperatura();
+        this.umidade = getUmidade();
+        this.pragas = pragas;
     }
 
     public String getImagens() { return imagens; }
