@@ -1,6 +1,5 @@
 public class Drone{
     private String id;
-    private Sensores sensor;
     private String status;
 
     public Drone(String id,  String status) {
@@ -9,7 +8,6 @@ public class Drone{
         }
         this.id = id;
         this.status = status;
-        this.sensor = new Sensores();
     }
 
     public String getId() {
@@ -23,9 +21,22 @@ public class Drone{
     public String setStatus(String status) {
         return this.status = status;
     }
-
-      public Sensores getSensor() {
-        return sensor;
-    }    
+    
+    
+    public boolean reservarDrone() {
+        if (this.status.equalsIgnoreCase("livre")) {
+            this.status = "ocupado";
+            return true;
+        }
+        return false; 
+    }
+    
+    public boolean liberarDrone() {
+        if (this.status.equalsIgnoreCase("ocupado")) {
+            this.status = "livre";
+            return true;
+        }
+        return false;
+    }
+     
 }
-
