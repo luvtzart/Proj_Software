@@ -1,15 +1,14 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Usuario {
     private String login;
     private String senhaHash;
-    private List<Drone> dronesControlados;
 
-    public Usuario(String login, String senhaHash) {
+
+    public Usuario(String login, String senha) {
         this.login = login;
-        this.senhaHash = senhaHash;
-        this.dronesControlados = new ArrayList<>();
+        this.senhaHash = gerarHash(senha);
     }
 
     public String getLogin() {
@@ -20,11 +19,24 @@ public class Usuario {
         return senhaHash;
     }
 
-    public void adicionarDrone(Drone drone) {
-        dronesControlados.add(drone);
+    private String gerarHash(String senha) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(senha.getBytes());
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashBytes) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Erro ao gerar hash da senha", e);
+        }
     }
 
-    public List<Drone> getDronesControlados() {
-        return dronesControlados;
+    public boolean validarSenha(String senhaDigitada) {
+        return gerarHash(senhaDigitada).equals(this.senhaHash);
     }
 }

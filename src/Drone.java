@@ -1,30 +1,41 @@
-import java.util.ArrayList;
-import java.util.List;
+public class Drone{
+    private String id;
+    private String status;
 
-public class Usuario {
-    private String login;
-    private String senhaHash;
-    private List<Drone> dronesControlados;
-
-    public Usuario(String login, String senhaHash) {
-        this.login = login;
-        this.senhaHash = senhaHash;
-        this.dronesControlados = new ArrayList<>();
+    public Drone(String id,  String status) {
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("ID do drone não pode ser nulo ou vazio.");
+        }
+        this.id = id;
+        this.status = status;
     }
 
-    public String getLogin() {
-        return login;
+    public String getId() {
+        return id;
+    }
+    
+    public String getStatus() {
+        return status;
     }
 
-    public String getSenhaHash() {
-        return senhaHash;
+    public String setStatus(String status) {
+        return this.status = status;
     }
 
-    public void adicionarDrone(Drone drone) {
-        dronesControlados.add(drone);
+    public boolean reservarDrone() {
+        if ("Disponível".equals(this.status)) {
+            this.status = "Ocupado";
+            System.out.println("Drone " + id + " reservado com sucesso!");
+            return true;
+        } else {
+            System.out.println("Drone " + id + " não está disponível!");
+            return false;
+        }
+    }
+    
+    public void liberarDrone() {
+        this.status = "Disponível";
+        System.out.println("O drone " + id + " está liberado!");
     }
 
-    public List<Drone> getDronesControlados() {
-        return dronesControlados;
-    }
 }
