@@ -1,11 +1,11 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     private static final Usuario USUARIO_FIXO = new Usuario("admin", "password123");
+
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         // LOGIN
@@ -21,19 +21,19 @@ public class Main {
             String pass = scanner.nextLine();
 
             if (user.equals(USUARIO_FIXO.getLogin()) && USUARIO_FIXO.validarSenha(pass)) {
-                System.out.println("\nLogin realizado com sucesso!\n");
+                System.out.println("\nLogin realizado!\n");
                 autenticado = true;
             } else {
-                System.out.println("Usuário ou senha incorretos! Tente novamente.\n");
+                System.out.println("Usuário ou senha incorretos. Tente novamente.\n");
             }
         }
 
-        // DADOS INICIAIS
+        // DADOS
         List<Agendamento> agendamentos = new ArrayList<>();
         List<RegistroPlantacao> registros = new ArrayList<>();
 
         Area area1 = new Area(1000, "A1", "Fazendinha", "Milho");
-        Area area2 = new Area(2000, "B1", "Sítio Lagos", "Soja");
+        Area area2 = new Area(2000, "B1", "Sitio Lagos", "Soja");
 
         Drone drone1 = new Drone("D1", "Disponível");
         Drone drone2 = new Drone("D2", "Disponível");
@@ -41,109 +41,161 @@ public class Main {
         boolean rodando = true;
 
         while (rodando) {
-            System.out.println("===== MENU PRINCIPAL =====");
+            System.out.println("===== MENU =====");
             System.out.println("1 - Agendar Voo");
             System.out.println("2 - Concluir Voo");
             System.out.println("3 - Gerar Relatórios");
             System.out.println("4 - Registrar Plantação");
             System.out.println("0 - Sair");
-            System.out.print("Escolha uma opção: ");
 
-            int opcao = scanner.nextInt();
-            scanner.nextLine(); // limpar buffer
+            System.out.print("Opção: ");
+            
+            int opcao;
+            try {
+                opcao = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Opção inválida.\n");
+                continue;
+            }
 
-            switch (opcao) {
+ switch (opcao) {
 
-                case 1:
-                    // AGENDAR VOO
-                    System.out.println("\nEscolha a área:");
-                    System.out.println("1 - Fazendinha (Milho)");
-                    System.out.println("2 - Sítio Lagos (Soja)");
-                    int areaEscolhida = scanner.nextInt();
-                    scanner.nextLine();
+    case 1:
+        // AGENDAR VOO
+        System.out.println("Escolha a área:");
+        System.out.println("1 - " + area1.getLocalizacao());
+        System.out.println("2 - " + area2.getLocalizacao());
 
-                    Area area = (areaEscolhida == 1) ? area1 : area2;
-                    Drone drone = (areaEscolhida == 1) ? drone1 : drone2;
+        int a;
+        try {
+            a = Integer.parseInt(scanner.nextLine());
+        } catch (Exception e) {
+            System.out.println("Entrada inválida.\n");
+            break;
+        }
 
-                    System.out.print("Data do voo (YYYY-MM-DD): ");
-                    String data = scanner.nextLine();
+        Area areaEscolhida = (a == 1) ? area1 : area2;
+        Drone drone = (a == 1) ? drone1 : drone2;
 
-                    System.out.print("Código do agendamento: ");
-                    String cod = scanner.nextLine();
+        System.out.print("Data (YYYY-MM-DD): ");
+        String dataStr = scanner.nextLine();
 
-                    Agendamento ag = new Agendamento(cod, data, area, drone);
-                    ag.agendarVoo();
-                    agendamentos.add(ag);
+        System.out.print("Código do agendamento: ");
+        String cod = scanner.nextLine();
 
-                    System.out.println("Voo agendado com sucesso!\n");
-                    break;
-
-                case 2:
-                    // CONCLUIR VOO
-                    System.out.println("\nAgendamentos pendentes:");
-                    for (int i = 0; i < agendamentos.size(); i++) {
-                        System.out.println(i + " - " + agendamentos.get(i).getId());
-                    }
-
-                    System.out.print("Escolha o índice do voo: ");
-                    int idx = scanner.nextInt();
-                    scanner.nextLine();
-
-                    if (idx >= 0 && idx < agendamentos.size()) {
-                        agendamentos.get(idx).concluirVoo();
-                    } else {
-                        System.out.println("Índice inválido!");
-                    }
-                    break;
-
-                case 3:
-                    // RELATÓRIOS
-                    System.out.println("\n=== RELATÓRIOS ===");
-                    for (RegistroPlantacao r : registros) {
-                        Relatorio rel = new Relatorio(r);
-                        rel.gerarResumo();
-                    }
-                    System.out.println();
-                    break;
-
-                case 4:
-                    // REGISTRAR PLANTAÇÃO
-                    if (agendamentos.isEmpty()) {
-                        System.out.println("Nenhum voo realizado ainda.\n");
-                        break;
-                    }
-
-                    System.out.println("\nEscolha qual voo deseja registrar:");
-                    for (int i = 0; i < agendamentos.size(); i++) {
-                        System.out.println(i + " - " + agendamentos.get(i).getId());
-                    }
-                    int rIdx = scanner.nextInt();
-                    scanner.nextLine();
-
-                    System.out.print("Nome da imagem: ");
-                    String img = scanner.nextLine();
-
-                    RegistroPlantacao reg = new RegistroPlantacao(
-                            img,
-                            agendamentos.get(rIdx),
-                            agendamentos.get(rIdx).getDrone()
-                    );
-
-                    registros.add(reg);
-                    System.out.println("Registro criado com sucesso!\n");
-                    break;
-
-                case 0:
-                    rodando = false;
-                    System.out.println("Encerrando sistema...");
-                    break;
-
-                default:
-                    System.out.println("Opção inválida!\n");
-                    break;
+        // verificar ID duplicado
+        boolean existe = false;
+        for (Agendamento ag : agendamentos) {
+            if (ag.getId().equals(cod)) {
+                existe = true;
+                break;
             }
         }
 
+        if (existe) {
+            System.out.println("Esse ID já existe! Escolha outro.\n");
+            break;
+        }
+
+        try {
+            Agendamento ag = new Agendamento(cod, dataStr, areaEscolhida, drone);
+            if (ag.agendarVoo()) {
+                agendamentos.add(ag);
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        break;
+
+    case 2:
+        if (agendamentos.isEmpty()) {
+            System.out.println("Nenhum agendamento.\n");
+            break;
+        }
+
+        System.out.println("Agendamentos:");
+        for (int i = 0; i < agendamentos.size(); i++) {
+            System.out.println(i + " - " + agendamentos.get(i).getId());
+        }
+
+        System.out.print("Escolha índice: ");
+        int idx;
+        try {
+            idx = Integer.parseInt(scanner.nextLine());
+        } catch (Exception e) {
+            System.out.println("Entrada inválida.\n");
+            break;
+        }
+
+        if (idx < 0 || idx >= agendamentos.size()) {
+            System.out.println("Índice inválido.\n");
+            break;
+        }
+
+        agendamentos.get(idx).concluirVoo();
+        break;
+
+    case 3:
+        System.out.println("=== RELATÓRIOS ===");
+        if (registros.isEmpty()) {
+            System.out.println("Nenhum registro ainda.\n");
+            break;
+        }
+        for (RegistroPlantacao r : registros) {
+            Relatorio rel = new Relatorio(r);
+            rel.gerarResumo();
+        }
+        break;
+
+    case 4:
+        if (agendamentos.isEmpty()) {
+            System.out.println("Nenhum voo agendado.\n");
+            break;
+        }
+
+        System.out.println("Escolha o voo a registrar:");
+        for (int i = 0; i < agendamentos.size(); i++) {
+            System.out.println(i + " - " + agendamentos.get(i).getId());
+        }
+
+        int rIdx;
+        try {
+            rIdx = Integer.parseInt(scanner.nextLine());
+        } catch (Exception e) {
+            System.out.println("Entrada inválida.\n");
+            break;
+        }
+
+        if (rIdx < 0 || rIdx >= agendamentos.size()) {
+            System.out.println("Índice inválido.\n");
+            break;
+        }
+
+        System.out.print("Nome da imagem: ");
+        String img = scanner.nextLine();
+
+        RegistroPlantacao reg = new RegistroPlantacao(
+                img,
+                agendamentos.get(rIdx),
+                agendamentos.get(rIdx).getDrone()
+        );
+
+        registros.add(reg);
+        System.out.println("Registro criado!\n");
+        break;
+
+    case 0:
+        rodando = false;
+        System.out.println("Encerrando...\n");
+        break;
+
+    default:
+        System.out.println("Opção inválida.\n");
+        break;
+}
+
+        }
         scanner.close();
     }
 }
