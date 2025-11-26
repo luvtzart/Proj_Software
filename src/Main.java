@@ -12,8 +12,9 @@ public class Main {
         System.out.println("===== SISTEMA DE DRONES AGRÍCOLAS =====");
 
         boolean autenticado = false;
+        int tentativas = 0; 
 
-        while (!autenticado) {
+        while (!autenticado && tentativas < 3) {
             System.out.print("Usuário: ");
             String user = scanner.nextLine();
 
@@ -25,6 +26,7 @@ public class Main {
                 autenticado = true;
             } else {
                 System.out.println("Usuário ou senha incorretos. Tente novamente.\n");
+                tentativas ++;
             }
         }
 
@@ -40,7 +42,7 @@ public class Main {
 
         boolean rodando = true;
 
-        while (rodando) {
+        while (rodando && autenticado) {
             System.out.println("===== MENU =====");
             System.out.println("1 - Agendar Voo");
             System.out.println("2 - Concluir Voo");
@@ -196,6 +198,7 @@ public class Main {
 }
 
         }
+        System.out.println("Encerrando...\n");
         scanner.close();
     }
 }
